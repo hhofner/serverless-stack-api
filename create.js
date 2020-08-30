@@ -1,4 +1,6 @@
 import * as uuid from "uuid";
+import handler from "./libs/handler-lib";
+import dynamoDb from "./libs/dynamodb-lib";
 import AWS from "aws-sdk";
 
 AWS.config.update({ region: "us-east-2" });
@@ -9,7 +11,7 @@ export function main(event, context, callback) {
   // in 'event.body
   const data = JSON.parse(event.body);
 
-  const param = {
+  const params = {
     TableName: process.env.tableName,
     // 'Item' contains the attributes of the item to be
     // created
@@ -22,13 +24,13 @@ export function main(event, context, callback) {
     //
     Item: {
       userId: event.requestContext.identity.cognitoIdentityId,
-      noteId: uuid.v1();
+      noteId: uuid.v1(),
       content: data.content,
       attachment: data.attachment,
       createdAt: Date.now()
     }
   };
- 
+
   dynamoDb.put(params, (error, data) => {
     // Set response headers to enable CORS (Cross-Origin Resource Sharing)
     const headers = {

@@ -1,0 +1,8 @@
+{
+  "body": "{\"source\":\"tok_jp\",\"storage\":21}",
+  "requestContext": {
+    "identity": {
+      "cognitoIdentityId": "USER-SUB-1234"
+    }
+  }
+}

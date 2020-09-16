@@ -7,4 +7,3 @@ export function calculateCost(storage) {
 
   return rate * storage * 100;
 }
-

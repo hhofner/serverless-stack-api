@@ -28,12 +28,13 @@ provider:
       Action:
         - dynamodb:DescribeTable
         - dynamodb:Query
-        - dynamodbScan
+        - dynamodb:Scan
         - dynamodb:GetItem
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
-      Resource: "arn:aws:dynamodb:us-east-2:653251964914:table/notes"
+          #Resource: "arn:aws:dynamodb:us-east-2:653251964914:table/notes"
+      Resource: "arn:aws:dynamodb:us-east-2:*:*"
 
 functions:
   # Defines an HTTP API endpoint that calls the main function in create.js
@@ -61,6 +62,7 @@ functions:
           method: get
           cors: true
           authorizer: aws_iam
+
   list:
     handler: list.main
     events:
@@ -82,8 +84,6 @@ functions:
           cors: true
           authorizer: aws_iam
 
-  
-
   delete:
     # Defines an HTTP API endpoint that calls the main function in delete.js
     # - path: url path is /notes/{id}
@@ -95,6 +95,7 @@ functions:
           method: delete
           cors: true
           authorizer: aws_iam
+
   billing:
     # Defines an HTTP API endpoint that calls the main function in billing.js
     # - path: url path is /billing
